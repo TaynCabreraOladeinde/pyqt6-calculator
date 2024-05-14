@@ -60,8 +60,19 @@ class MainWindow(QMainWindow):
         
         self.calculate_button = QPushButton("Calculate")
         self.calculate_button.setMinimumSize(100, 50)
+        self.calculate_button.clicked.connect(self.calculate_tip)
         self.container_layout.addWidget(self.calculate_button)
         
+        self.after_tip_label = QLabel("After Tip: N/A")
+        self.after_tip_label.setFont(QFont("Helvetica", 15))
+        self.after_tip_label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        self.container_layout.addWidget(self.after_tip_label)
+    
+    def calculate_tip(self):
+        tip_amount = self.before_tip_doubleSpinBox.value() * (self.tip_percentage_spinbox.value() / 100)
+        after_tip = tip_amount + self.before_tip_doubleSpinBox.value()
+        self.after_tip_label.setText(f"After Tip: ${round(after_tip, 2)}")
+    
         
 
 
