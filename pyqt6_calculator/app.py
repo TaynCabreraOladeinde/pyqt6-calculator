@@ -58,22 +58,43 @@ class MainWindow(QMainWindow):
         self.tip_percentage_spinbox.setSuffix(" %")
         self.tip_percentage_container_layout.addWidget(self.tip_percentage_spinbox)
         
+        self.buttons_container = QWidget()
+        self.buttons_container_layout = QHBoxLayout()
+        self.buttons_container.setLayout(self.buttons_container_layout)
+        self.container_layout.addWidget(self.buttons_container)
+        
+        self.reset_button = QPushButton("Reset")
+        self.reset_button.setMinimumSize(100, 50)
+        self.reset_button.clicked.connect(self.reset)
+        self.buttons_container_layout.addWidget(self.reset_button)
+        
         self.calculate_button = QPushButton("Calculate")
         self.calculate_button.setMinimumSize(100, 50)
         self.calculate_button.clicked.connect(self.calculate_tip)
-        self.container_layout.addWidget(self.calculate_button)
+        self.buttons_container_layout.addWidget(self.calculate_button)
+        
+        
+        self.tip_amount_label = QLabel("Tip Amount: N/A")
+        self.tip_amount_label.setFont(QFont("Helvetica", 12))
+        self.tip_amount_label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        self.container_layout.addWidget(self.tip_amount_label)
         
         self.after_tip_label = QLabel("After Tip: N/A")
-        self.after_tip_label.setFont(QFont("Helvetica", 15))
+        self.after_tip_label.setFont(QFont("Helvetica", 12))
         self.after_tip_label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         self.container_layout.addWidget(self.after_tip_label)
     
     def calculate_tip(self):
         tip_amount = self.before_tip_doubleSpinBox.value() * (self.tip_percentage_spinbox.value() / 100)
         after_tip = tip_amount + self.before_tip_doubleSpinBox.value()
+        self.tip_amount_label.setText(f"Tip Amount: ${round(tip_amount, 2)}")
         self.after_tip_label.setText(f"After Tip: ${round(after_tip, 2)}")
     
-        
+    def reset(self):
+        self.before_tip_doubleSpinBox.setValue(0.00)
+        self.tip_percentage_spinbox.setValue(10)
+        self.tip_amount_label.setText(f"Tip Amount: N/A")
+        self.after_tip_label.setText(f"After Tip: N/A")
 
 
 app = QApplication([])
