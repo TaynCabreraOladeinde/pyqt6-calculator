@@ -40,9 +40,10 @@ class MainWindow(QMainWindow):
         
         self.before_tip_doubleSpinBox = QDoubleSpinBox()
         self.before_tip_doubleSpinBox.setMinimumSize(250, 40)
-        self.before_tip_doubleSpinBox.setMinimum(0.0)
+        self.before_tip_doubleSpinBox.setMinimum(00.000)
+        self.before_tip_doubleSpinBox.setMaximum(10000.0000)
         self.before_tip_doubleSpinBox.setPrefix("$ ")
-        self.before_tip_doubleSpinBox.setSingleStep(10.00)
+        self.before_tip_doubleSpinBox.setSingleStep(100.00)
         self.before_tip_container_layout.addWidget(self.before_tip_doubleSpinBox)
         
         self.tip_percentage_container = QGroupBox("Tip Percent %")
